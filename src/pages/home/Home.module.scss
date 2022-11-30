@@ -1,0 +1,24 @@
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/maps';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/utilities';
+
+.container {
+  background-color: $gray-800;
+  height: 100%;
+  padding-bottom: 100px;
+  padding-top: 50px;
+}
+
+.title {
+  text-align: center;
+  color: $gray-100;
+  padding-top: 40px;
+  margin-bottom: 50px;
+}
+
+// .cards {
+//   display: flex;
+//   align-items: center;
+// }
