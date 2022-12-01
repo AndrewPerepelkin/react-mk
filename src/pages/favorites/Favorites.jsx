@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -6,8 +6,11 @@ import styles from './Favorites.module.scss';
 import FilmCard from '../../components/FilmCard/FilmCard';
 
 const Favorites = ({films, onLike}) => {
-  // eslint-disable-next-line arrow-body-style
-  const favoritesFilms = films.filter((film) => film.liked);
+  const favoritesFilms = useMemo(() => {
+    // eslint-disable-next-line arrow-body-style
+    return films.filter((film) => film.liked);
+  }, [films]);
+
   return (
     <div className={styles.container}>
       {favoritesFilms.length === 0 ? (

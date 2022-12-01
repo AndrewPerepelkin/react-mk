@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useCallback} from 'react';
 
 const SLUG = 'marvel';
 const API_KEY = '9b67fc54';
@@ -39,12 +39,13 @@ export const useFilms = () => {
     getFilms();
   }, []);
 
-  const onLike = (id) => {
-    const updatedFilms = films.map((film) => {
-      return film.imdbID === id ? {...film, liked: !film.liked} : film;
+  const onLike = useCallback((id) => {
+    setFilms((prevState) => {
+      return prevState.map((film) => {
+        return film.imdbID === id ? {...film, liked: !film.liked} : film;
+      });
     });
-    setFilms(updatedFilms);
-  };
+  }, []);
 
   return {films, isLoading, error, onLike};
 };
