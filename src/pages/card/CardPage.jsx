@@ -11,10 +11,14 @@ const CardPage = ({film, onLike}) => {
   };
   return (
     <div className={styles.container}>
-      <FilmCard
-        {...film}
-        onLike={onLike}
-      />
+      {film ? (
+        <FilmCard
+          {...film}
+          onLike={onLike}
+        />
+      ) : (
+        <h2 className={styles.error}>Something went wrong</h2>
+      )}
       <button
         className='btn btn-secondary'
         type='button'
