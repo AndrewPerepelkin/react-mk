@@ -11,9 +11,19 @@ export const useFilms = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const setToLocalStorage = (key, data) => {
+    localStorage.setItem(key, JSON.stringify(data));
+  };
+
+  const getFromLocalStorage = (key) => {
+    return JSON.parse(localStorage.getItem(key) || '{}');
+  };
+
   const formatResponse = (data) => {
     const formatedData = data.Search.map((film) => {
-      return {...film, liked: false};
+      const dataFromLocalStorage = getFromLocalStorage('likedFilms');
+
+      return {...film, liked: dataFromLocalStorage[film.imdbID] || false};
     });
     return formatedData;
   };
@@ -45,6 +55,15 @@ export const useFilms = () => {
         return film.imdbID === id ? {...film, liked: !film.liked} : film;
       });
     });
+
+    const likedFilmsFromLocalStorage = getFromLocalStorage('likedFilms');
+    if (likedFilmsFromLocalStorage[id]) {
+      likedFilmsFromLocalStorage[id] = false;
+    } else {
+      likedFilmsFromLocalStorage[id] = true;
+    }
+
+    setToLocalStorage('likedFilms', likedFilmsFromLocalStorage);
   }, []);
 
   return {films, isLoading, error, onLike};
